@@ -28,16 +28,37 @@ int setUartParameters(
     unsigned char stopBits,
     Parity parity);
 
+// Transmit related functions
+
+/* Method: startSending
+
+Start sending from data buffer.
+:param unsigned char pinNumber: Pin number of TX.
+:param void (*f)(): callback for the end of sending from the buffer.
+*/
 void startSending(unsigned char pinNumber, void (*f)());
 
+/* Method: setBufferToSend
+
+Set buffer for sending data. Buffer received here will be used to send data to UART.
+  Sending is parallel by running main code. Be sure, this buffer do not change form outside during sending process.
+:param unsigned char* buff: Buffer of data
+:param unsigned long buffLen: Length of the data
+*/
 int setBufferToSend(unsigned char* buff, unsigned long buffLen);
 
+/* Method: stopSending
+
+Clean UART sending setting.
+:param unsigned char pinNumber: pin number
+*/
 void stopSending(unsigned char pinNumber);
 
-unsigned char readFromReceiveRegister();
+/*Method: readFromReceiveRegister
 
-#ifdef TESTING_PACKAGE
-unsigned char charToReceive;
-#endif // TESTING_PACKAGE
+Read one-byte data from the HW buffer
+:return unsigned char: Return with data received
+*/
+unsigned char readFromReceiveRegister();
 
 #endif
